@@ -12,6 +12,8 @@ interface FoodDao {
 
     @Insert
     fun insertAll(foods: List<FoodEntity>)
+    @Insert
+    fun insert(food: FoodEntity)
 
     @Query("DELETE FROM food_table")
     fun deleteAll()

@@ -36,22 +36,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        val food = intent.getSerializableExtra("entry extra")
-        if (food!=null){
-            lifecycleScope.launch(Dispatchers.IO){
-                (application as FoodApplication).db.foodDao().insertAll(
-                    FoodEntity(
-                        name = food.name
-                        //calories = food.calroies
-
-                    )
-
-                )
-
-
-            }
-
-        }
 
         findViewById<Button>(R.id.btnNewFood).setOnClickListener{
             var foodName = findViewById<EditText>(R.id.editName2).text.toString()
@@ -61,6 +45,18 @@ class MainActivity : AppCompatActivity() {
             findViewById<EditText>(R.id.editName2).text.clear()
             findViewById<EditText>(R.id.editCal2).text.clear()
             adapter.notifyDataSetChanged()
+            lifecycleScope.launch(Dispatchers.IO){
+                (application as FoodApplication).db.foodDao().insert(
+                    FoodEntity(
+                        name = food.name,
+                        calories = food.calories
+
+                    )
+
+                )
+
+
+            }
 //
 
         }
